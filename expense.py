@@ -1,6 +1,6 @@
 from PyInquirer import prompt
 import csv
-from user import read_users
+from user import read_users, add_user
 
 
 expense_questions = [
@@ -59,8 +59,10 @@ def new_expense(*args):
         if tmp == "Stop":
             break
         List_of_users_involved.append(tmp)
+    add_user(infos["spender"])
+    List_of_users_involved.append(infos["spender"])
 
-    cost_of_each = int(infos["amount"]) // (len(List_of_users_involved) + 1)
+    cost_of_each = int(infos["amount"]) // (len(List_of_users_involved))
     print("Each people need to refund : " +
           str(cost_of_each) + " to " + infos["spender"])
 

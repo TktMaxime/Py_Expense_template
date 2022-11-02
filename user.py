@@ -11,26 +11,31 @@ user_questions = [
 
 
 def export_user(infos):
-    with open('user_report.csv', 'a') as f:  # You will need 'wb' mode in Python 2.x
+    with open('users.csv', 'a') as f:  # You will need 'wb' mode in Python 2.x
         w = csv.writer(f)
         for key, value in infos.items():
-            w.writerow([key, value])
+            w.writerow([value])
         f.close()
 
 
 def read_users():
-    with open('user_report.csv', 'r') as csv_file:
+    with open('users.csv', 'r') as csv_file:
         reader = csv.reader(csv_file)
         L = []
         for row in reader:
-            L.append(row[1])
+            L.append(row[0])
         csv_file.close()
     return L
 
 
-def add_user():
-    infos = prompt(user_questions)
-    export_user(infos)
+def add_user(name=""):
+    if name != "":
+        dict = {}
+        dict["Name"] = name
+        export_user(dict)
+    else:
+        infos = prompt(user_questions)
+        export_user(infos)
 
     print("User Added !")
     # This function should create a new user, asking for its name
